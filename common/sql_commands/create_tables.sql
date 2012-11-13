@@ -3,7 +3,7 @@
 CREATE TABLE course
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    crn INT NOT NULL UNIQUE,
+
     title VARCHAR(30) NOT NULL,
     subject VARCHAR(30) NOT NULL,
     type VARCHAR(30) NOT NULL,
@@ -12,15 +12,17 @@ CREATE TABLE course
     simester INT NOT NULL,
     level INT NOT NULL,
     credit INT NOT NULL,
-    capacity INT
+    description VARCHAR(500)
 );
 CREATE TABLE schedule
-(		
+(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	crn INT NOT NULL UNIQUE,
 	course_id INT NOT NULL,
 	day VARCHAR(10),
 	time TIME NOT NULL,
 	room VARCHAR(30) NOT NULL,
+	capacity INT,
 	type VARCHAR(30) NOT NULL
 );
 CREATE TABLE lecturer
@@ -39,12 +41,12 @@ CREATE TABLE lecture_map
 
 
  CREATE TABLE prerequisite
- (		
+ (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	course_title VARCHAR(30) NOT NULL,		
+	course_title VARCHAR(30) NOT NULL,
 	grade VARCHAR(10) NOT NULL
  );
- 
+
  # Create a user table for the system
  CREATE TABLE users
  (
@@ -52,4 +54,14 @@ CREATE TABLE lecture_map
  	user_name VARCHAR(20),
  	password VARCHAR(20) NOT NULL,
  	email VARCHAR(30) NOT NULL
+ );
+ CREATE TABLE comments
+ (
+ 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ 	course_id INT NOT NULL,
+ 	title VARCHAR(30),
+ 	comment VARCHAR(500) NOT NULL,
+ 	commenters_name VARCHAR(20),
+ 	time TIME NOT NULL,
+ 	day DATE NOT NULL
  );

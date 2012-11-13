@@ -3,6 +3,7 @@ include_once 'lecturer.php';
 class Schedule
 {
 	private $id;
+	private $crn;
 	private $day;
 	private $time;
 	private $room;
@@ -10,14 +11,23 @@ class Schedule
 	private $lecturer; #Array(new Lecturer())
 
 	/*----------------------------------------Constructor ---------------------------------*/
-	public function Schedule($id, $day, $time, $room, $type, $lecturer)
+	public function Schedule($id, $crn, $day, $time, $room, $type, $lecturer)
 	{
 		$this->id = $id;
 		$this->day = $day;
+		$this->crn = $crn;
 		$this->time = $time;
 		$this->room = $room;
 		$this->type = $type;
 		$this->lecturer = $lecturer;
+	}
+	public function getCRN()
+	{
+		return $this->crn;
+	}
+	public function getID()
+	{
+		return $this->id;
 	}
 	public function addLecturer($value)
 	{

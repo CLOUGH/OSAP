@@ -56,12 +56,13 @@
 				$lecturers[$k] = new Lecturer($lecture_rows['id'],$lecture_rows['lecturer_name'],$lecture_rows['email']);
 			}
 
-			$schedule[$j]= new Schedule($schedule_row['id'], $schedule_row['day'], $schedule_row['time'], $schedule_row['room'],$schedule_row['type'],$lecturers);
+			$schedule[$j]= new Schedule($schedule_row['id'],$schedule_row['crn'], $schedule_row['day'], $schedule_row['time'], $schedule_row['room'],$schedule_row['type'],$lecturers);
 
 		}
-		$course->init($record['id'],$record['crn'],$record['title'], $record['code'],$record['subject'],
+		$course->init($record['id'],$record['title'], $record['code'],$record['subject'],
 						$record['credit'], $record['faculty'], $record['simester'],$record['level'],
-						$schedule, $record['type']);
+						$schedule, $record['type'],$record['description']);
+
 
 		#closing database
 		$db->close();
@@ -104,14 +105,24 @@
 			<dl>
 				<dt>
 					<h3><?php echo $course->getName(); ?></h3>
+
 			</dl>
 			<div id="description">
 				<h4>Description</h4>
 				<!-- TODO: IMPLEMENT DESCRIPTION -->
-				<p> This is a description of the course<p>
+				<p><?php echo $course->getDescription(); ?><p>
 			</div>
-			<div id="recommended_schedule">
-				<h4>Recommended Schedules</h4>
+			<div id="requirements">
+				<h4>Course Requirements</h4>
+				<p>Requirements of the course to sucessfully register</p>
+				<input type="checkbox" readonly="readonly" />Requirment 1<br>
+				<input type="checkbox" readonly="readonly" />Requirment 2<br>
+				<input type="checkbox" readonly="readonly" />Requirment 3<br>
+				<input type="checkbox" readonly="readonly" />Requirment 4<br>
+
+			</div>
+			<div id="schedule">
+				<h4>Schedules</h4>
 				<table>
 					<tr tr id="table_heading">
 						<td>Type</td>
@@ -119,10 +130,11 @@
 						<td>Day</td>
 						<td>Room</td>
 						<td>Lecturers</td>
+						<td>Register</td>
 					</tr>
 					<?php
 						foreach($course->getSchedules() as $sched){ # Start of loop ?>
-						<tr>
+						<tr class="row">
 							<?php
 							 	echo '<td>'.$sched->getType().'</td>';
 							 	echo '<td>'.$sched->getTime().'</td>';
@@ -133,11 +145,46 @@
 									$lecturers_name_list.=$lect->getName().", ";
 								 }
 							 	echo '<td>'.$lecturers_name_list.'</td>';
+							 	echo '<td class="checkbox" ><input type="checkbox" id="'.$sched->getID().'" />';
 							 ?>
+
 						</tr>
 					<?php } #End of loop ?>
 				</table>
+				<input type="button" id="register" class="button" value="Register" />
 			</div>
+			<h4>Comments</h4>
+			<div class="comment">
+				<h5>Comment Title</h5>
+				<p>
+					Message Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+					Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+					unknown printer took a galley of type and scrambled it to make a type specimen book.
+					It has survived not only five centuries, but also the leap into electronic typesetting,
+					remaining essentially unchanged. It was popularised in the 1960s with the release of
+					Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+					software like Aldus PageMaker including versions of Lorem Ipsum.
+				</p>
+				<div class="commenter_info">
+					<p>Name <spam class="date">23/09/2012</sapm><p>
+				</div>
+	    	</div>
+	    	<div class="comment">
+				<h5>Comment Title</h5>
+				<p>
+					Message Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+					Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+					unknown printer took a galley of type and scrambled it to make a type specimen book.
+					It has survived not only five centuries, but also the leap into electronic typesetting,
+					remaining essentially unchanged. It was popularised in the 1960s with the release of
+					Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+					software like Aldus PageMaker including versions of Lorem Ipsum.
+				</p>
+				<div class="commenter_info">
+					<p>Name <spam class="date">23/09/2012</sapm><p>
+				</div>
+	    	</div>
+	    	<input type="button" id="AddComment" class="button" value="Add Comment" />
 		</div>
 
 		<div class="footer">

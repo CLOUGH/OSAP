@@ -1,34 +1,102 @@
-h4
-{
+h4{
 	font-size: 12pt;
 }
-table
-{
-	max-width: 400px;
+table{
+	width: 800px;
 	border-collapse:collapse;
-
+	font-size: 10pt;
+	margin: 20px auto;
 }
-tr
+#table_heading td
 {
+	font-weight: bold;
+}
+tr{
 	text-align:center;
-
-
 }
-td
-{
-	margin:0px auto;
+td{
+	padding-left:10px;
+	padding-right: 10px;
+	height: 25px;
 }
-#table_heading
-{
+.checkbox{
+	text-align: center;
+}
+#table_heading{
 	margin:auto 100px;
-	height:50px;
+	height:40px;
 }
-.rows:hover
+.row{
+	text-align: left;
+}
+#description
+{
+	float: left;
+	width: 500px
+}
+#requirements
+{
+	width: 300px;
+	float: left;
+	margin-left: 50px;
+}
+#requirements input{
+	margin-left: 10px;
+}
+#requirements:after
+{
+	clear: both;
+}
+input.button
 {
 
-	cursor:pointer;
-	cursor:hand;
+	padding: 5px 5px;
+	background: #0AC92B;
+	color: white;
+	border: solid 1px #008B00;
+	margin-top: 20px;
+	height: 28px;
 
-	border:1px solid #24D330;
+	display:block;
+	font-size: 10pt;
+	vertical-align: center;
 
+	margin-left: auto;
+    margin-right: auto;
+	border-radius: 4px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-align: center;
+}
+input.button:hover, form input.button:focus {
+    background:  #3D9140;
+    border: solid 1px #008B00;
+    text-decoration: none;
+    cursor: pointer;
+}
+.comment
+{
+	width:700px;
+	padding-left: 100px;
+	padding-right: 100px;
+	overflow: hidden;
+}
+.commenter_info
+{
+	float:right;
+	font-size: 8pt;
+	font-weight: bold;
+}
+.commenter_info .date
+{
+	margin-left: 20px;
+}
+h5{
+	font-size: 9pt;
+	font-weight: bold;
+}
+#description p
+{
+	padding-left: 10px;
+	padding-right: 10px;
 }

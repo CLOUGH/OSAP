@@ -14,6 +14,7 @@ class Course
 	private $simester;
 	private $level;
 	private $type;
+	private $description;
 	/*--------------------------------------------Arrays---------------------------------------*/
 	private $pre_requisites; #[pre_requisites]
 	public $schedule; #[schedule]
@@ -22,11 +23,10 @@ class Course
 	{
 
 	}
-	public function init($id,$crn,$name, $code,$subject, $credit, $faculty, $simester, $level,$schedule,
-			 $type)
+	public function init($id,$name, $code,$subject, $credit, $faculty, $simester, $level,$schedule,
+			 $type, $description)
 	{
 		$this->id = $id;
-		$this->crn = $crn;
 		$this->name = $name;
 		$this->code = $code;
 		$this->subject= $subject;
@@ -35,6 +35,7 @@ class Course
 		$this->simester = $simester;
 		$this->level = $level;
 		$this->type = $type;
+		$this->description = $description;
 
 		$this->schedule=$schedule;
 	}
@@ -46,10 +47,6 @@ class Course
 	public function setName($value)
 	{
 		$this->name=$value;
-	}
-	public function setCRN($value)
-	{
-		$this->crn=$value;
 	}
 	public function setCode($value)
 	{
@@ -92,6 +89,10 @@ class Course
 		$this->id=$value;
 	}
 	/*----------------------------------------Getters-------------------------------------------*/
+	public function getDescription()
+	{
+		return $this->description;
+	}
 	public function getID()
 	{
 		return $this->id;
@@ -99,10 +100,6 @@ class Course
 	public function getName()
 	{
 		return $this->name;
-	}
-	public function getCRN()
-	{
-		return $this->crn;
 	}
 	public function getCode()
 	{
