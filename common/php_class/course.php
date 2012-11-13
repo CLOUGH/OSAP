@@ -1,6 +1,7 @@
 <?php
 include_once 'lecturer.php';
 include_once 'schedule.php';
+include_once 'comment.php';
 #class describing a course object
 class Course
 {
@@ -15,16 +16,17 @@ class Course
 	private $level;
 	private $type;
 	private $description;
+	private $comments;
 	/*--------------------------------------------Arrays---------------------------------------*/
 	private $pre_requisites; #[pre_requisites]
 	public $schedule; #[schedule]
 	/*----------------------------------------Contstructor-------------------------------------*/
 	public function Course()
 	{
-
+		$this->comments= array();
 	}
 	public function init($id,$name, $code,$subject, $credit, $faculty, $simester, $level,$schedule,
-			 $type, $description)
+			 $type, $description,$comment_array)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -36,6 +38,7 @@ class Course
 		$this->level = $level;
 		$this->type = $type;
 		$this->description = $description;
+		$this->comments = $comment_array;
 
 		$this->schedule=$schedule;
 	}
@@ -43,6 +46,10 @@ class Course
 	public function addSchedule($value)
 	{
 		$this->schedule[count($this->schedule)]= $value;
+	}
+	public function addComment($value)
+	{
+		$this->comments[count(comments)] =$value;
 	}
 	public function setName($value)
 	{
@@ -92,6 +99,10 @@ class Course
 	public function getDescription()
 	{
 		return $this->description;
+	}
+	public function getComments()
+	{
+		return $this->comments;
 	}
 	public function getID()
 	{

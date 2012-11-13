@@ -14,18 +14,18 @@ function get_course_list($search_prefrence)
 	 	echo 'Error: could not connect to database.';
 	 	return false;
 	}
+	$schedule = null;
 	$num = $search_prefrence->numArgumentSet();
 	$query = $search_prefrence->courseListQuery();
 	$result_set = $db->query($query);
 
 	for($i=0;$i<$result_set->num_rows;$i++)
 	{
-
 		$row = $result_set->fetch_assoc();
 		$course[$i] = new Course();
 		$course[$i]->init($row['id'],$row['title'], $row['code'],$row['subject'],
 						$row['credit'], $row['faculty'], $row['simester'],$row['level'],
-						$schedule, $row['type'],$row['description']);
+						$schedule, $row['type'],$row['description'],array());
 	}
 
 	$db->close();

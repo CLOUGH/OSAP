@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Course List</title>
-	<?php 
+	<?php
 		include_once '../../common/php_class/search_prefrence.php';
 		include_once 'controller/get_recommended.php';
 		include_once '../../common/php_class/course.php';
@@ -12,11 +12,11 @@
 	<link rel ="stylesheet" type="text/css" href="../../common/stylesheet/
 	main_style.css" />
 	<link rel ="stylesheet" type="text/css" href="stylesheet/
-	course_list.css" />	
+	course_list.css" />
 	<link rel ="stylesheet" type="text/css" href="../../common/stylesheet/navigation_bar.css" />
 	<script src="../../common/jQuery/jquery-1.8.2.js"></script>
 	<script type="text/javascript" src="stylesheet/header.js"></script>
-	
+
 </head>
 <body>
 	<?php
@@ -33,13 +33,12 @@
 		$search_prefrence->setLectureName($_POST['lecture_name']);
 		$search_prefrence->setTime($_POST['time_range_min'],$_POST['time_range_max']);
 		$search_prefrence->setMaxClassDuration($_POST['max_class_duration']);
-		$search_prefrence->setLectureGender($_POST['lecture_gender']);
 		$search_prefrence->setScheduleType($_POST['schedule_type']);
 
 		$_SESSION['search_prefrence'] = $search_prefrence;
-		
+
 		$courses = get_course_list($search_prefrence);
-		
+
 	?>
 	<div class="wrapper">
 		<div class="header" >
@@ -78,7 +77,7 @@
 			<dl>
 				<dt>
 					<h3 >Recomended Courses</h3>
-				
+
 			</dl>
 			<div id="side_bar">
 
@@ -94,11 +93,11 @@
 					<td>Simester</td>
 				</tr>
 
-			<?php for($i=0; $i<count($courses); $i++) 
+			<?php for($i=0; $i<count($courses); $i++)
 			{ #Start of Loop
 				$onclick_row = "window.location='../../course/?course_id=".$courses[$i]->getID()."'";
 			?>
-				
+
 				<tr class="rows" onclick=<?php echo $onclick_row ?> >
 					<td><?php echo $courses[$i]->getCode(); ?></td>
 					<td><?php echo $courses[$i]->getName(); ?></td>
@@ -117,7 +116,7 @@
 			<a href="">Home</a>
 		</div>
 	</div>
-	
+
 
 </body>
 </html>

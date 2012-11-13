@@ -37,11 +37,12 @@
 		$course_id=$_GET['course_id'];
 		$query_course="SELECT c.* FROM course c WHERE c.id =".$course_id;
 		$course = new Course();
+		$comment =null;
 
 		$result_set= $db->query($query_course);
 		$record= $result_set->fetch_assoc();
 		#get schedule
-		$course_schedule_result_set = $db->query("SELECT s.id, s.day, s.time, s.room, s.type FROM schedule s WHERE s.course_id =".$record['id'].";");
+		$course_schedule_result_set = $db->query("SELECT s.* FROM schedule s WHERE s.course_id =".$record['id'].";");
 		for($j=0;$j<$course_schedule_result_set->num_rows; $j++)
 		{
 			$schedule_row = $course_schedule_result_set->fetch_assoc();
@@ -61,7 +62,7 @@
 		}
 		$course->init($record['id'],$record['title'], $record['code'],$record['subject'],
 						$record['credit'], $record['faculty'], $record['simester'],$record['level'],
-						$schedule, $record['type'],$record['description']);
+						$schedule, $record['type'],$record['description'],$comment);
 
 
 		#closing database

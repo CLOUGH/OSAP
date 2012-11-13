@@ -17,7 +17,7 @@ class CourseSearchPrefrence
 	private $schedule_type;
 
 	/*--------------------------------Constructors----------------------------------*/
-	
+
 	function __construct()
 	{
 		# code...
@@ -31,7 +31,7 @@ class CourseSearchPrefrence
 	{
 		$this->course_code=$value;
 	}
-	
+
 	public function setSubject($value)
 	{
 		$this->subject=$value;
@@ -48,7 +48,7 @@ class CourseSearchPrefrence
 	{
 		$this->degree_name = $value;
 	}
-	
+
 	public function setSimester($value)
 	{
 		$new_value = $value;
@@ -110,7 +110,7 @@ class CourseSearchPrefrence
 	}
 	public function setScheduleType($value)
 	{
-		$this->schedule_type = $value;	
+		$this->schedule_type = $value;
 	}
 	public function setLectureGender($value)
 	{
@@ -148,7 +148,7 @@ class CourseSearchPrefrence
 	}
 	private function getArgumentUsed()
 	{
-		
+
 		$i=0;
 		if(!empty($this->course_name))
 			$args[$i++] = 'course_name';
@@ -182,13 +182,13 @@ class CourseSearchPrefrence
 	public function courseListQuery()
 	{
 		$arg_used = $this->getArgumentUsed();
-		$query = "SELECT c.id, c.code, c.title, c.subject, c.credit, c.level, c.faculty, simester FROM course c 
+		$query = "SELECT c.*, simester FROM course c
 				JOIN schedule s ON s.course_id=c.id
 				JOIN lecture_map lm ON lm.schedule_id = s.id
-				JOIN lecturer l ON l.id =lm.lecturer_id 
+				JOIN lecturer l ON l.id =lm.lecturer_id
 				WHERE " ;
 		for($i=0; $i<count($arg_used); $i++)
-		{	
+		{
 			switch($arg_used[$i])
 			{
 				case 'course_name':
@@ -202,7 +202,7 @@ class CourseSearchPrefrence
 					$query= $query."c.subject LIKE '%".$this->subject."%' AND ";
 					break;
 				case 'course_credit_range':
-					$query= $query."c.credit >='".$this->course_credit_range['min']."' AND 
+					$query= $query."c.credit >='".$this->course_credit_range['min']."' AND
 									c.credit <='".$this->course_credit_range['max']."' AND ";
 					break;
 				case 'faculty':
@@ -221,7 +221,7 @@ class CourseSearchPrefrence
 						$query= $query."c.level='".$this->year_of_degree."' AND ";
 					break;
 				case 'lecture_name':
-					#TODO: IMPLEMENT QUERY 
+					#TODO: IMPLEMENT QUERY
 					$query= $query."l.lecturer_name='".$this->lecture_name."' AND ";
 					break;
 				case 'time':
@@ -248,7 +248,7 @@ class CourseSearchPrefrence
 		// your error code can go here
 		echo "<h1>Sorry</h1> ";
 		echo $error;
-		
+
 		die();
 	}
 }
