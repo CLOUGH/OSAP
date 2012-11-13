@@ -1,0 +1,41 @@
+<!--			        USING HTML5             -->
+<!DOCTYPE html>
+<html>
+
+<!--                   HEAD OF DOCUMENT                    	-->
+<head>	
+	<title>Login</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="stylesheet/login.css" title="style">
+</head>
+
+<!--                   BODY OF DOCUMENT                    	-->
+<body>
+<div class="wrapper" >
+
+   <!--MAIN CONTENT AREA -->
+	<div class="content">
+        <h1>Online Student Advisory Portal </h1>
+        <!-- input form for login									-->
+        <form action="check_login.php" method="post">
+            <p>
+                <label  for="username">Username </label><br />
+                <input type="text" name="username" id="username" maxlength="50" class="text"/>
+            </p>
+            <p>
+                <label for="password">Password</label><br />
+                <input type="password" name="password" id="password" maxlength="20" class="text"/>
+            </p>
+            <p>
+                <input class="button" type="submit" name="Login" value="Login"/>
+               
+            </p>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+    </div>
+</div>
+</body>
+</html>

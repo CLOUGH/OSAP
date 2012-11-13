@@ -1,0 +1,96 @@
+@font-face {
+	 font-family:kocoon;
+	 src:url('../../../common/fonts/Kocoon-Light.otf');
+	 font-weight:100;
+}
+@font-face{
+	font-family:opensans;
+	src:url('../../../common/fonts/OpenSans-Light.ttf');
+}
+@font-face{
+	font-family:opensans_semibold;
+	src:url('../../../common/fonts/OpenSans-Semibold.ttf');
+}
+h1
+{
+	font-family: kocoon, sans-serif;
+	color: #008B00;
+	text-align: center;
+	font-size: 18pt;
+	padding-left: 5em;
+}
+.wrapper
+{
+	width:960px;
+	margin:00px auto 0px auto;
+	padding-top: 20px;
+	background: white;
+}
+.header h1
+{
+	text-align: center;
+}
+.content
+{
+	clear: both;
+	padding:0px 20px 20px 20px;
+	background: white;
+	overflow: hidden;
+}
+.footer
+{
+	height:80px;
+	background: whitesmoke;
+	padding: 20px;
+}
+.notification
+{
+	float:right;
+	margin-right: 60px;
+	width:150px;
+	height: 30px;
+}
+.footer a
+{
+  text-decoration: none;
+}
+.footer a:visited
+{
+	color: gray ;
+}
+body{
+	background: whitesmoke;
+	font-family: opensans, arial, sans-serif;
+	font-size: 10pt;
+	color: gray ;
+}
+h3{
+	margin-bottom: 0px;
+	font-size: 18pt;
+	color:#008B00;
+}
+h4{
+	margin-bottom: 0px;
+	font-size: 12pt;
+	color:#008B00;
+	clear:both;
+}
+dd{
+	font-size: 9pt;
+	margin-left: 5px;
+}
+
+
+hr{
+	border-top: 1px dotted #CCC;
+	clear:both;
+	width: 800px;
+}
+
+#user_name
+{
+	margin-right: 50px;
+	font-size: 11pt;
+	font-family:opensans_semibold, arial, sans-serif;
+	vertical-align: top;
+}
