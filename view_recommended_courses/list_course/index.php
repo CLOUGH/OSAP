@@ -33,7 +33,7 @@
 		$search_prefrence->setLectureName($_POST['lecture_name']);
 		$search_prefrence->setTime($_POST['time_range_min'],$_POST['time_range_max']);
 		$search_prefrence->setMaxClassDuration($_POST['max_class_duration']);
-		$search_prefrence->setLectureGender($_POST['lecture_gender']);
+		
 		$search_prefrence->setScheduleType($_POST['schedule_type']);
 
 		$_SESSION['search_prefrence'] = $search_prefrence;
