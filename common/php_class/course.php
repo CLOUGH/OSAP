@@ -1,39 +1,48 @@
 <?php
+include_once 'lecturer.php';
+include_once 'schedule.php';
 #class describing a course object
 class Course
 {
+	private $id;
 	private $name;
 	private $crn;
 	private $code;
 	private $subject;
-	private $credit; 
+	private $credit;
 	private $faculty;
 	private $simester;
 	private $level;
 	private $type;
 	/*--------------------------------------------Arrays---------------------------------------*/
 	private $pre_requisites; #[pre_requisites]
-	private $schedule; #[schedule]
+	public $schedule; #[schedule]
 	/*----------------------------------------Contstructor-------------------------------------*/
 	public function Course()
 	{
 
 	}
-	public function init($crn,$name, $code,$subject, $credit, $faculty, $simester, $level,$schedule,
+	public function init($id,$crn,$name, $code,$subject, $credit, $faculty, $simester, $level,$schedule,
 			 $type)
 	{
+		$this->id = $id;
 		$this->crn = $crn;
 		$this->name = $name;
 		$this->code = $code;
 		$this->subject= $subject;
-		$this->credit = $credit; 
+		$this->credit = $credit;
 		$this->faculty = $faculty;
 		$this->simester = $simester;
 		$this->level = $level;
-		$this->schedule = $schedule;
 		$this->type = $type;
+
+		$this->schedule=$schedule;
 	}
 	/*----------------------------------------Setters-------------------------------------------*/
+	public function addSchedule($value)
+	{
+		$this->schedule[count($this->schedule)]= $value;
+	}
 	public function setName($value)
 	{
 		$this->name=$value;
@@ -78,7 +87,15 @@ class Course
 	{
 		$this->type=$value;
 	}
+	public function setID($value)
+	{
+		$this->id=$value;
+	}
 	/*----------------------------------------Getters-------------------------------------------*/
+	public function getID()
+	{
+		return $this->id;
+	}
 	public function getName()
 	{
 		return $this->name;
@@ -115,7 +132,7 @@ class Course
 	{
 		return $this->lecture_name;
 	}
-	public function getSchedule()
+	public function getSchedules()
 	{
 		return $this->schedule;
 	}
@@ -124,6 +141,7 @@ class Course
 		return $this->type;
 	}
 	/*----------------------------------------Sub Classes---------------------------------------*/
+
 
 }
 ?>

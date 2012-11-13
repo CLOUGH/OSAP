@@ -14,7 +14,7 @@ class CourseSearchPrefrence
 	private $time; #[max, min]
 	private $lecture_gender;
 	private $max_class_duration;
-	private $lab_course;
+	private $schedule_type;
 
 	/*--------------------------------Constructors----------------------------------*/
 	
@@ -108,9 +108,9 @@ class CourseSearchPrefrence
 	{
 		$this->max_class_duration = $value;
 	}
-	public function setLabCourse($value)
+	public function setScheduleType($value)
 	{
-		$this->lab_course = $value;	
+		$this->schedule_type = $value;	
 	}
 	public function setLectureGender($value)
 	{
@@ -141,7 +141,7 @@ class CourseSearchPrefrence
 		$num_set = !empty($this->time['max'])&& !empty($this->time['min']) ?$num_set+1: $num_set; #[max, min]
 		$num_set = !empty($this->lecture_gender) ?$num_set+1: $num_set;
 		$num_set = !empty($this->max_class_duration) ?$num_set+1: $num_set;
-		$num_set = !empty($this->lab_course) ?$num_set+1: $num_set;
+		$num_set = !empty($this->schedule_type) ?$num_set+1: $num_set;
 
 		echo "number argument used: ".$num_set;
 		return $num_set;
@@ -174,50 +174,55 @@ class CourseSearchPrefrence
 			$args[$i++]= 'lecture_gender';
 		if(!empty($this->max_class_duration))
 			$args[$i++]= 'max_class_duration';
-		if(!empty($this->lab_course))
-			$args[$i++]= 'lab_course';
+		if(!empty($this->schedule_type))
+			$args[$i++]= 'schedule_type';
 
 		return $args;
 	}
-	public function generateQuery()
+	public function courseListQuery()
 	{
 		$arg_used = $this->getArgumentUsed();
-		$query = "SELECT * FROM course ".(count($arg_used)>0 ?"WHERE ":'');
-
+		$query = "SELECT c.id, c.code, c.title, c.subject, c.credit, c.level, c.faculty, simester FROM course c 
+				JOIN schedule s ON s.course_id=c.id
+				JOIN lecture_map lm ON lm.schedule_id = s.id
+				JOIN lecturer l ON l.id =lm.lecturer_id 
+				WHERE " ;
 		for($i=0; $i<count($arg_used); $i++)
 		{	
 			switch($arg_used[$i])
 			{
 				case 'course_name':
-					$query= $query."title LIKE '%".$this->course_name."%' AND ";
+					$query= $query."c.title LIKE '%".$this->course_name."%' AND ";
 
 					break;
 				case 'course_code':
-					$query=$query. "code LIKE '%".$this->course_code."%' AND ";
+					$query=$query. "c.code LIKE '%".$this->course_code."%' AND ";
 					break;
 				case 'subject':
-					$query= $query."subject LIKE '%".$this->subject."%' AND ";
+					$query= $query."c.subject LIKE '%".$this->subject."%' AND ";
 					break;
 				case 'course_credit_range':
-					$query= $query."credit >='".$this->course_credit_range['min']."' AND 
-									credit <='".$this->course_credit_range['max']."' AND ";
+					$query= $query."c.credit >='".$this->course_credit_range['min']."' AND 
+									c.credit <='".$this->course_credit_range['max']."' AND ";
 					break;
 				case 'faculty':
 					if($this->faculty!="ALL")
-					$query= $query."faculty LIKE '%".$this->faculty."%' AND ";
+					$query= $query."c.faculty LIKE '%".$this->faculty."%' AND ";
 					break;
 				case 'degree_name':
+					#TODO Implement
 					break;
 				case 'simester':
 					if($this->simester!="ALL")
-						$query= $query."simester='".$this->simester."' AND ";
+						$query= $query."c.simester='".$this->simester."' AND ";
 					break;
 				case 'year_of_degree':
 					if($this->year_of_degree!="ALL")
-						$query= $query."level='".$this->year_of_degree."' AND ";
+						$query= $query."c.level='".$this->year_of_degree."' AND ";
 					break;
 				case 'lecture_name':
 					#TODO: IMPLEMENT QUERY 
+					$query= $query."l.lecturer_name='".$this->lecture_name."' AND ";
 					break;
 				case 'time':
 					break;
@@ -226,12 +231,17 @@ class CourseSearchPrefrence
 				case 'max_class_duration':
 
 					break;
-				case 'lab_course':
+				case 'schedule_type':
+					if($this->schedule_type!='ALL')
+						$query= $query."s.type='".$this->schedule_type."' AND ";
 					break;
 			}
 
+
 		}
-		echo $query=substr($query,0,strrpos($query, 'AND',-1));
+		$query=substr($query,0,strrpos($query, 'AND',-1));
+		echo $query=$query." GROUP BY c.code";
+
 		return $query;
 	}
 	private function died($error) {

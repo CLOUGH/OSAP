@@ -1,15 +1,15 @@
 @font-face {
 	 font-family:kocoon;
-	 src:url('../../../common/fonts/Kocoon-Light.otf');
+	 src:url('../fonts/Kocoon-Light.otf');
 	 font-weight:100;
 }
 @font-face{
 	font-family:opensans;
-	src:url('../../../common/fonts/OpenSans-Light.ttf');
+	src:url('../fonts/OpenSans-Light.ttf');
 }
 @font-face{
 	font-family:opensans_semibold;
-	src:url('../../../common/fonts/OpenSans-Semibold.ttf');
+	src:url('../fonts/OpenSans-Semibold.ttf');
 }
 h1
 {

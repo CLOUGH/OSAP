@@ -1,15 +1,17 @@
-table 
+h4
 {
-	margin: auto;
-	margin-top:50px;
-	width:800px;
+	font-size: 12pt;
+}
+table
+{
+	max-width: 400px;
 	border-collapse:collapse;
 
 }
 tr
 {
 	text-align:center;
-	height:40px;
+
 
 }
 td
@@ -19,12 +21,11 @@ td
 #table_heading
 {
 	margin:auto 100px;
-	height:70px;
-	font-size:14pt;
+	height:50px;
 }
 .rows:hover
 {
-	
+
 	cursor:pointer;
 	cursor:hand;
 
