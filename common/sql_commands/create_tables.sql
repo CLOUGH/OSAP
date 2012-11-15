@@ -63,5 +63,13 @@ CREATE TABLE lecture_map
  	comment VARCHAR(500) NOT NULL,
  	commenters_name VARCHAR(20),
  	time TIME NOT NULL,
- 	day DATE NOT NULL
+ 	date DATE NOT NULL
+ );
+ CREATE TABLE course_requirements
+ (
+ 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ 	course_id INT NOT NULL,
+ 	labs INT NOT NULL,
+ 	lectures INT NOT NULL,
+ 	tutorial INT NOT NULL
  );

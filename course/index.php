@@ -35,19 +35,20 @@
 		}
 
 		$course_id=$_GET['course_id'];
+		#Get Course
 		$query_course="SELECT c.* FROM course c WHERE c.id =".$course_id;
 		$course = new Course();
-		$comment =null;
-
 		$result_set= $db->query($query_course);
 		$record= $result_set->fetch_assoc();
-		#get schedule
+
+		/*--------------------------------------------------------Get Shedules--------------------------------------------------------*/
+
 		$course_schedule_result_set = $db->query("SELECT s.* FROM schedule s WHERE s.course_id =".$record['id'].";");
 		for($j=0;$j<$course_schedule_result_set->num_rows; $j++)
 		{
 			$schedule_row = $course_schedule_result_set->fetch_assoc();
 
-			#Get Lectures
+			/*-----------------------------------------------------Get Lectures---------------------------------------------------------*/
 			$schedule_lecture_result_set = $db->query("SELECT * FROM lecturer l JOIN lecture_map lm
 				ON lm.lecturer_id = l.id WHERE lm.schedule_id=".$schedule_row['id'].";");
 			$lecturers = array();
@@ -56,13 +57,29 @@
 				$lecture_rows = $schedule_lecture_result_set->fetch_assoc();
 				$lecturers[$k] = new Lecturer($lecture_rows['id'],$lecture_rows['lecturer_name'],$lecture_rows['email']);
 			}
-
-			$schedule[$j]= new Schedule($schedule_row['id'],$schedule_row['crn'], $schedule_row['day'], $schedule_row['time'], $schedule_row['room'],$schedule_row['type'],$lecturers);
-
+			#Create Schedule class
+			$schedule[$j]= new Schedule($schedule_row['id'],$schedule_row['crn'], $schedule_row['day'], $schedule_row['time'],
+										$schedule_row['room'],$schedule_row['type'],$lecturers);
 		}
+		/*-------------------------------------------------Get Comments & Reviews--------------------------------------------------------*/
+		$comments_resultset = $db->query("SELECT c.* FROM comments c WHERE c.course_id=".$record['id'].";");
+		$comments = array();
+		for($i=0; $i<$comments_resultset->num_rows; $i++)
+		{
+			$comment_row = $comments_resultset->fetch_assoc();
+			$comments[$i]= new Comment($comment_row['id'], $comment_row['title'],$comment_row['comment'],$comment_row['commenters_name']
+ 									,$comment_row['date'],$comment_row['time']);
+		}
+
+		/*----------------------------------------------------Get Course Requirements-----------------------------------------------------*/
+		$requirement_resultset = $db->query("SELECT r.* FROM course_requirments r WHERE r.course_id=".$record['id']);
+		$requirment_row = fetch_assoc();
+		$requirement = new CourseRequirment($requirment_row['id'],$requirment_row['lectures'], $requirment_row['tutorial']);
+
+
 		$course->init($record['id'],$record['title'], $record['code'],$record['subject'],
 						$record['credit'], $record['faculty'], $record['simester'],$record['level'],
-						$schedule, $record['type'],$record['description'],$comment);
+						$schedule, $record['type'],$record['description'],$comments,$requirement);
 
 
 		#closing database
@@ -155,36 +172,21 @@
 				<input type="button" id="register" class="button" value="Register" />
 			</div>
 			<h4>Comments</h4>
+			<? foreach ($course->getComments() as $comment) { #Start of loop ?>
 			<div class="comment">
-				<h5>Comment Title</h5>
+				<h5><?php echo $comment->getTitle(); ?></h5>
+				<!--Message -->
 				<p>
-					Message Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-					Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-					unknown printer took a galley of type and scrambled it to make a type specimen book.
-					It has survived not only five centuries, but also the leap into electronic typesetting,
-					remaining essentially unchanged. It was popularised in the 1960s with the release of
-					Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-					software like Aldus PageMaker including versions of Lorem Ipsum.
+					<?php echo $comment->getComment(); ?>
 				</p>
 				<div class="commenter_info">
-					<p>Name <spam class="date">23/09/2012</sapm><p>
+					<p>
+						<?php echo $comment->getCommentersName();?>
+						<spam class="date"><?php echo $comment->getDate();?></sapm>
+					<p>
 				</div>
 	    	</div>
-	    	<div class="comment">
-				<h5>Comment Title</h5>
-				<p>
-					Message Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-					Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-					unknown printer took a galley of type and scrambled it to make a type specimen book.
-					It has survived not only five centuries, but also the leap into electronic typesetting,
-					remaining essentially unchanged. It was popularised in the 1960s with the release of
-					Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-					software like Aldus PageMaker including versions of Lorem Ipsum.
-				</p>
-				<div class="commenter_info">
-					<p>Name <spam class="date">23/09/2012</sapm><p>
-				</div>
-	    	</div>
+	    	<?php } #End of Looop ?>
 	    	<input type="button" id="AddComment" class="button" value="Add Comment" />
 		</div>
 
