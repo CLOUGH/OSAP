@@ -40,9 +40,8 @@
 		$course = new Course();
 		$result_set= $db->query($query_course);
 		$record= $result_set->fetch_assoc();
-
-		/*--------------------------------------------------------Get Shedules--------------------------------------------------------*/
-
+	
+	/*--------------------------------------------------------Get Shedules--------------------------------------------------------*/
 		$course_schedule_result_set = $db->query("SELECT s.* FROM schedule s WHERE s.course_id =".$record['id'].";");
 		for($j=0;$j<$course_schedule_result_set->num_rows; $j++)
 		{
