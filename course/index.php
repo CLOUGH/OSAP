@@ -72,10 +72,12 @@
 		}
 
 		/*----------------------------------------------------Get Course Requirements-----------------------------------------------------*/
-		$requirement_resultset = $db->query("SELECT r.* FROM course_requirments r WHERE r.course_id=".$record['id']);
-		$requirment_row = fetch_assoc();
+		#TODO: IMPLEMENT Requirements
+		/*$requirement_resultset = $db->query("SELECT r.* FROM course_requirments r WHERE r.course_id=".$record['id']);
+		$requirment_row = $requirement_resultset->fetch_assoc();
 		$requirement = new CourseRequirment($requirment_row['id'],$requirment_row['lectures'], $requirment_row['tutorial']);
-
+	*/
+		$requirement=null;
 
 		$course->init($record['id'],$record['title'], $record['code'],$record['subject'],
 						$record['credit'], $record['faculty'], $record['simester'],$record['level'],
