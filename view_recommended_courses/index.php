@@ -21,7 +21,7 @@ session_start();
 	<div class="wrapper">
 		<div class="header" >
 			<div class="notification">
-				<spam id="user_name"><?php echo $_SESSION['username'];?></spam>
+				<spam id="user_name"><?php echo 'ID#:'.$_SESSION['username'];?></spam>
 				<a href="#" ><img id="mail_img" src="../common/images/e_mail_16x16.png" /></a>
 			</div>
 			<h1 id="test">Student Online Advisory Portal</h1>

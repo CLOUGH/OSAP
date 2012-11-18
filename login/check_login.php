@@ -20,7 +20,7 @@ $myusername = stripslashes($myusername);
 $mypassword = stripslashes($mypassword);
 $myusername = mysql_real_escape_string($myusername);
 $mypassword = mysql_real_escape_string($mypassword);
-$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
+$sql="SELECT * FROM $tbl_name WHERE Id_Number='$myusername' and password='$mypassword'";
 $result=mysql_query($sql);
 
 // Mysql_num_row is counting table row
@@ -32,10 +32,13 @@ if($count==1){
 	session_register("myusername");
 	session_register("mypassword"); 
 	$_SESSION['username'] = $myusername; 
-	header("location:../view_recommended_courses/index.html");
+	header("location:../view_recommended_courses/index.php");
 	}
 else {
-	echo "Wrong Username or Password";
+	echo '<script type="text/javascript">';
+	echo 'alert("Invalid Login")';
+	echo '</script>';
+	include("index.html");
 	}
 }
 

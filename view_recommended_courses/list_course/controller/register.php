@@ -20,7 +20,7 @@ if (mysqli_connect_errno()) {
 /*--------------------------------------------------/
 /				Updates Course Info                 /
 /--------------------------------------------------*/
-$sql = "UPDATE users SET Courses = '$subject' WHERE Username='$session_name'"; 
+$sql = "UPDATE registered_courses SET Courses = '$subject' WHERE Id_Number='$session_name'"; 
 
 if ($conn->query($sql) === TRUE) {
   echo 'Successfully Registered For Course:'.' '.$subject;

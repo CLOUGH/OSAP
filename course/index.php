@@ -140,6 +140,7 @@
 				<input type="checkbox" readonly="readonly" />Requirment 4<br>
 
 			</div>
+			<form method="post" action="../view_recommended_courses/list_course/controller/register.php">
 			<div id="schedule">
 				<h4>Schedules</h4>
 				<table>
@@ -164,16 +165,17 @@
 									$lecturers_name_list.=$lect->getName().", ";
 								 }
 							 	echo '<td>'.$lecturers_name_list.'</td>';
-							 	echo '<td class="checkbox" ><input type="checkbox" id="'.$sched->getID().'" />';
+							 	echo '<td class="checkbox" ><input type="checkbox" name="course[]" value= "'.$course->getName().' '.$sched->getType().' '.$sched->getTime().' '.$sched->getDay(). ' " id="'.$sched->getID().'" />';
 							 ?>
 
 						</tr>
 					<?php } #End of loop ?>
 				</table>
-				<input type="button" id="register" class="button" value="Register" />
+				<input type="submit" id="register" class="button" value="Register" />
 			</div>
+		</form>
 			<h4>Comments</h4>
-			<? foreach ($course->getComments() as $comment) { #Start of loop ?>
+			<?php foreach ($course->getComments() as $comment) { #Start of loop ?>
 			<div class="comment">
 				<h5><?php echo $comment->getTitle(); ?></h5>
 				<!--Message -->
