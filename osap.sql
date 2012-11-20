@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 13, 2012 at 05:02 PM
--- Server version: 5.5.20
--- PHP Version: 5.2.17
+-- Generation Time: Nov 20, 2012 at 01:55 AM
+-- Server version: 5.5.24-log
+-- PHP Version: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -140,6 +140,35 @@ CREATE TABLE IF NOT EXISTS `prerequisite` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `registered_courses`
+--
+
+CREATE TABLE IF NOT EXISTS `registered_courses` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_Number` varchar(255) NOT NULL,
+  `Courses` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `Username` (`Id_Number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `registered_courses`
+--
+
+INSERT INTO `registered_courses` (`Id`, `Id_Number`, `Courses`) VALUES
+(1, '620045123', ''),
+(2, '620043090', 'Mechanics Lecture 08:00:00 Mon \nMechanics Lab 09:00:00 Tue \n'),
+(3, '620040012', ''),
+(4, '620045126', ''),
+(5, '620043902', ''),
+(6, '620041152', ''),
+(7, '620047152', ''),
+(8, '620043905', ''),
+(9, '620041325', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `schedule`
 --
 
@@ -178,26 +207,29 @@ INSERT INTO `schedule` (`id`, `crn`, `capacity`, `course_id`, `day`, `time`, `ro
 
 CREATE TABLE IF NOT EXISTS `users` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Username` varchar(255) NOT NULL,
+  `Id_Number` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
   `Password` varchar(20) NOT NULL,
   `Email` varchar(255) NOT NULL,
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `Username` (`Id_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`Id`, `Username`, `Password`, `Email`) VALUES
-(1, 'Marius', 'faith', 'name@domain.net'),
-(2, 'shane', 'pass1234', 'Shanec132006@hotmail.com'),
-(3, 'Warren', 'pass1234', 'warren.clough@gmail.com'),
-(4, 'Kenrick', 'password', 'duke-london@hotmail.com'),
-(5, 'Dake', 'runaway', 'name@domain.net'),
-(6, 'Dake', 'noob', 'name@domain.net'),
-(7, 'david', 'kong', 'name@domain.net'),
-(8, 'Sabrina', 'number1', 'name@domain.net'),
-(9, 'Aldin', 'password', 'the.man.boy.1@gmail.com');
+INSERT INTO `users` (`Id`, `Id_Number`, `first_name`, `last_name`, `Password`, `Email`) VALUES
+(1, '620045123', 'Mary ', 'Smith', 'faith', 'name@domain.net'),
+(2, '620043090', 'Shane ', 'Campbell', 'pass1234', 'Shanec132006@hotmail.com'),
+(3, '620040012', 'Warren ', 'Clough', 'pass1234', 'warren.clough@gmail.com'),
+(4, '620045126', 'Kenrick', 'Beckett', 'password', 'duke-london@hotmail.com'),
+(5, '620043902', 'Dake', 'Gordon', 'runaway', 'duke-london@gmail.com'),
+(6, '620041152', 'Sabrina', 'Anderson', 'noob', 'name@domain.net'),
+(7, '620047152', 'Rachel', 'Fuller', 'kong', 'name@domain.net'),
+(8, '620043905', 'Jeremy', 'Spence', 'number1', 'name@domain.net'),
+(9, '620041325', 'Aldin', 'Crosdale', 'password', 'the.man.boy.1@gmail.com');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
