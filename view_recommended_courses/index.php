@@ -1,5 +1,13 @@
 <?php
+include_once '../common/php_class/user.php';
+foreach (glob('../common/php_controller/*.php') as $filename)
+{
+    include $filename;
+}
+
 session_start();
+$user = $_SESSION['user'];
+
 ?>
 
 <!DOCTYPE html>
@@ -9,47 +17,20 @@ session_start();
 	<title>View Recommended Courses</title>
 	<link rel ="stylesheet" type="text/css" href="stylesheet/view_recommended_courses.css" />
 	<link rel ="stylesheet" type="text/css" href="../common/stylesheet/
-	main_style.css" />	
+	main_style.css" />
 	<link rel ="stylesheet" type="text/css" href="../common/stylesheet/navigation_bar.css" />
 	<script src="../common/jQuery/jquery-1.8.2.js"></script>
 	<script type="text/javascript" src="stylesheet/header.js">
-	
+
 	</script>
-	
+
 </head>
 <body>
 	<div class="wrapper">
 		<div class="header" >
-			<div class="notification">
-				<spam id="user_name"><?php echo 'ID#:'.$_SESSION['username'];?></spam>
-				<a href="#" ><img id="mail_img" src="../common/images/e_mail_16x16.png" /></a>
-			</div>
+			<?php echo get_notification_bar($user->getFirstName(),$user->getLastName()); ?>
 			<h1 id="test">Student Online Advisory Portal</h1>
-			<nav>
-				<ul>
-					<li><a href="">Home</a></li>
-					<li><a href="">Profile Management</a>
-						<ul class="drop_down_list">
-							<li><a href="">View Student Profile</a></li>
-							<li><a href="">Edit Personal Profile</a></li>
-							<li><a href="">Update Security</a></li>
-						</ul>
-					</li>
-					<li><a href=""  >Course Advisory</a>
-						<ul class="drop_down_list" >
-							<li><a href="">Get Recommended</a></li>
-							<li><a href="">Review Course</a></li>
-							<li><a href="">Compare Course Timetables</a></li>
-						</ul>
-					</li>
-					<li><a href="">Register</a>
-						<ul class="drop_down_list">
-							<li><a href="">Register Course</a></li>
-							<li><a href="">Request Override</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
+			<?php echo get_navigation_bar($user->getType()); ?>
 		</div>
 		<div class="content" >
 			<dl>
@@ -69,7 +50,7 @@ session_start();
 					<p>
 						<label for="course_name">Course Name</label>
 						<br/>
-						<input type="text" class="text" name="course_name"/>	
+						<input type="text" class="text" name="course_name"/>
 					</p>
 					<p>
 						<label for="course_code">Course Code</label>
@@ -81,15 +62,15 @@ session_start();
 						<br />
 						<input name="subject" type="text" class="text" />
 					</p>
-										
+
 				</div>
 				<div class="right_column">
 					<p>
 						<label for="credit_range">Credit Range</label>
 						<br />
 						<input type="text" class="text"name="credit_range_min"  style="width: 50px;" />
-						to 
-						<input type="text" class="text" name="credit_range_max" style="width: 50px;margin-left:10px" />			
+						to
+						<input type="text" class="text" name="credit_range_max" style="width: 50px;margin-left:10px" />
 					</p>
 					<p>
 						<label for="faculty">Faculty</label></label> <br/>
@@ -120,7 +101,7 @@ session_start();
 				</dl>
 
 					<h4 style="margin-left:80px">Personal</h4>
-					
+
 				<div id="personal_prefrence">
 					<p>
 						<label for="degree_name">Degree Name</label><br/>
@@ -129,7 +110,7 @@ session_start();
 					<p>
 						<label for="simester">Simester</label>
 						<label for="year_of_degree"style="margin-left:100px;">Year/Level of Degree</label>
-						<br/> 
+						<br/>
 						<select name="simester" class="select" style="width:150px;">
 							<option>ALL</option>
 							<option>First Simester</option>
@@ -158,11 +139,11 @@ session_start();
 					<p>
 						<label for="time_range">Course Time </label>
 						<br/>
-						<input name="time_range_min" type="text" class="text" style="width:70px;margin-right:10px;"/> 
+						<input name="time_range_min" type="text" class="text" style="width:70px;margin-right:10px;"/>
 						to <input name="time_range_max" type="text" class="text" style="width:70px;margin-left:10px;" />
 					</p>
 					<p>
-						<label for="max_class_duration">Max Class Duration</label> 
+						<label for="max_class_duration">Max Class Duration</label>
 						<br/>
 						<input name="max_class_duration" type="text" class="text" style="width:100px;">
 					</p>
@@ -173,7 +154,7 @@ session_start();
 						<input type="checkbox" name="gender" checked = "checked">Female
 					</p>
 					<p>
-						<label>Type of Course</label> 
+						<label>Type of Course</label>
 						<br />
 						<input type="checkbox" checked = "checked" value="theoretical"/>Theoretical
 						<input type="checkbox" checked = "checked" value="practical"/>Practical
@@ -182,7 +163,7 @@ session_start();
 					<p>
 						<label for="schedule_type">Schedule Type </label>
 						<br/>
-						<select class="select" name="schedule_type">
+						<select class="select" name="schedule_type" style="width:100px;">
 							<option>ALL</option>
 							<option>Lab</option>
 							<option>Lecture</option>
@@ -190,8 +171,8 @@ session_start();
 						</select>
 					</p>
 				</div>
-				
-				<input type="submit" value="submit" class="submit" /> 
+
+				<input type="submit" value="submit" class="submit" />
 			</form>
 		</div>
 
@@ -199,7 +180,7 @@ session_start();
 			<a href="">Home</a>
 		</div>
 	</div>
-	
+
 
 </body>
 </html>

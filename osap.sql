@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 3.4.10.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 20, 2012 at 01:55 AM
--- Server version: 5.5.24-log
--- PHP Version: 5.3.13
+-- Generation Time: Nov 22, 2012 at 08:02 AM
+-- Server version: 5.5.20
+-- PHP Version: 5.2.17
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `comment` varchar(500) NOT NULL,
   `commenters_name` varchar(20) DEFAULT NULL,
   `time` time NOT NULL,
-  `day` date NOT NULL,
+  `date` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `course_id`, `title`, `comment`, `commenters_name`, `time`, `day`) VALUES
+INSERT INTO `comments` (`id`, `course_id`, `title`, `comment`, `commenters_name`, `time`, `date`) VALUES
 (1, 1, 'First Comment', 'Mechanics is a fairly easy course if you apply most of the concepts. The teachers are great and labs are not as difficult as most other courses that you may come accross at UWI. I love mechanic and i would encourage anyone to do the this subject.', 'Warren Clough', '04:00:00', '2012-11-13'),
 (2, 1, 'Worst Subject', 'For me mechanic was difficult and I could not grasp most of the concepts. The subject is not really difficult but if I had applied myself I would have been a lot easier.', 'Random Person', '04:48:00', '2012-11-11');
 
@@ -72,6 +72,29 @@ CREATE TABLE IF NOT EXISTS `course` (
 INSERT INTO `course` (`id`, `title`, `subject`, `type`, `code`, `faculty`, `simester`, `level`, `credit`, `description`) VALUES
 (1, 'Mechanics', 'Physics', 'Theory', 'PHY140A', 'Pure and Applied Sciences', 1, 1, 3, 'Mechanics is the branch of Physics dealing with the study of motion. No matter what your interest in science or engineering, mechanics will be important for you - motion is a fundamental idea in all of science.  Mechanics can be divided into 2 areas - kinematics, dealing with describing motions, and dynamics, dealing with the causes of motion.'),
 (2, 'Electricity and Magnetism', 'Physics', 'Theory', 'PHY1421A', 'Pure and Applied Sciences', 2, 1, 3, 'To explain some phenomena, such as interference and diffraction of light, it is necessary to go beyond geometrical optics.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_requirements`
+--
+
+CREATE TABLE IF NOT EXISTS `course_requirements` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `course_id` int(11) NOT NULL,
+  `labs` int(11) NOT NULL,
+  `lectures` int(11) NOT NULL,
+  `tutorial` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `course_requirements`
+--
+
+INSERT INTO `course_requirements` (`id`, `course_id`, `labs`, `lectures`, `tutorial`) VALUES
+(1, 1, 1, 3, 1),
+(2, 2, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -206,30 +229,27 @@ INSERT INTO `schedule` (`id`, `crn`, `capacity`, `course_id`, `day`, `time`, `ro
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Id_Number` varchar(255) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `Password` varchar(20) NOT NULL,
-  `Email` varchar(255) NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `Username` (`Id_Number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(20) DEFAULT NULL,
+  `password` varchar(20) NOT NULL,
+  `first_name` varchar(20) NOT NULL,
+  `last_name` varchar(20) NOT NULL,
+  `middle_name` varchar(20) NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`Id`, `Id_Number`, `first_name`, `last_name`, `Password`, `Email`) VALUES
-(1, '620045123', 'Mary ', 'Smith', 'faith', 'name@domain.net'),
-(2, '620043090', 'Shane ', 'Campbell', 'pass1234', 'Shanec132006@hotmail.com'),
-(3, '620040012', 'Warren ', 'Clough', 'pass1234', 'warren.clough@gmail.com'),
-(4, '620045126', 'Kenrick', 'Beckett', 'password', 'duke-london@hotmail.com'),
-(5, '620043902', 'Dake', 'Gordon', 'runaway', 'duke-london@gmail.com'),
-(6, '620041152', 'Sabrina', 'Anderson', 'noob', 'name@domain.net'),
-(7, '620047152', 'Rachel', 'Fuller', 'kong', 'name@domain.net'),
-(8, '620043905', 'Jeremy', 'Spence', 'number1', 'name@domain.net'),
-(9, '620041325', 'Aldin', 'Crosdale', 'password', 'the.man.boy.1@gmail.com');
+INSERT INTO `users` (`id`, `user_name`, `password`, `first_name`, `last_name`, `middle_name`, `date_of_birth`, `email`, `type`) VALUES
+(1, 'shane', 'pass1234', 'Shane ', 'Campbell', 'c', '1992-11-08', 'shane.campbell.779@facebook.com', 'student'),
+(2, 'warren', 'pass123', 'Warren', 'Clough', 'Gareth Alexander', '1992-02-12', 'clough_waren@hotmail.com', 'student'),
+(3, 'sabrina', 'pass1234', 'Sabrina', 'Anderson', 'k', '1991-07-23', 'prettykera@hotmail.com ', 'student'),
+(4, 'demoy', 'pass1234', 'Demoy', 'Blake', 'k', '1992-11-01', 'demoyb@gmail.com ', 'student');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

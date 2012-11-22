@@ -7,7 +7,8 @@
 
 
 // connect to the "tests" database
-$conn = new mysqli('localhost', 'root', '', 'osap');
+
+$conn = new mysqli('localhost', 'osap_system','pass123','osap');
 
 // check connection
 if (mysqli_connect_errno()) {
@@ -16,7 +17,7 @@ if (mysqli_connect_errno()) {
 
 // sql query for INSERT INTO users
 $sql = "INSERT INTO `users` (`Username`, `Password`, `Email`)
-VALUES ('$name', '$password', 'name@domain.net')"; 
+VALUES ('$name', '$password', 'name@domain.net')";
 
 // Performs the $sql query on the server to insert the values
 if ($conn->query($sql) === TRUE) {

@@ -7,7 +7,14 @@
 		include_once '../../common/php_class/search_prefrence.php';
 		include_once 'controller/get_recommended.php';
 		include_once '../../common/php_class/course.php';
+		include_once '../../common/php_class/user.php';
+
+		foreach (glob('../../common/php_controller/*.php') as $filename)
+		{
+		    include $filename;
+		}
 		session_start();
+		$user = $_SESSION['user'];
 	?>
 	<link rel ="stylesheet" type="text/css" href="../../common/stylesheet/
 	main_style.css" />
@@ -42,36 +49,9 @@
 	?>
 	<div class="wrapper">
 		<div class="header" >
-			<div class="notification">
-				<spam id="user_name">My Name</spam>
-				<a href="#" ><img id="mail_img" src="../../common/images/e_mail_16x16.png" /></a>
-			</div>
+			<?php echo get_notification_bar($user->getFirstName(),$user->getLastName()); ?>
 			<h1 id="test">Student Online Advisory Portal</h1>
-			<nav>
-				<ul>
-					<li><a href="">Home</a></li>
-					<li><a href="">Profile Management</a>
-						<ul class="drop_down_list">
-							<li><a href="">View Student Profile</a></li>
-							<li><a href="">Edit Personal Profile</a></li>
-							<li><a href="">Update Security</a></li>
-						</ul>
-					</li>
-					<li><a href=""  >Course Advisory</a>
-						<ul class="drop_down_list" >
-							<li><a href="">Get Recommended</a></li>
-							<li><a href="">Review Course</a></li>
-							<li><a href="">Compare Course Timetables</a></li>
-						</ul>
-					</li>
-					<li><a href="">Register</a>
-						<ul class="drop_down_list">
-							<li><a href="">Register Course</a></li>
-							<li><a href="">Request Override</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
+			<?php echo get_navigation_bar($user->getType()); ?>
 		</div>
 		<div class="content" >
 			<dl>

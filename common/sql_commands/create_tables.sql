@@ -50,10 +50,16 @@ CREATE TABLE lecture_map
  # Create a user table for the system
  CREATE TABLE users
  (
- 	id INT NOT NULL PRIMARY KEY,
+ 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
  	user_name VARCHAR(20),
  	password VARCHAR(20) NOT NULL,
- 	email VARCHAR(30) NOT NULL
+ 	first_name VARCHAR(20) NOT NULL,
+ 	last_name VARCHAR(20) NOT NULL,
+ 	middle_name VARCHAR(20) NOT NULL,
+ 	date_of_birth DATE NOT NULL,
+ 	email VARCHAR(50) NOT NULL,
+ 	type VARCHAR (20) NOT NULL
+
  );
  CREATE TABLE comments
  (
