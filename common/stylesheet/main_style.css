@@ -11,8 +11,11 @@
 	font-family:opensans_semibold;
 	src:url('../fonts/OpenSans-Semibold.ttf');
 }
-h1
-{
+.inline_heading{
+	display: inline;
+	color:#008B00;
+}
+h1{
 	font-family: kocoon, sans-serif;
 	color: #008B00;
 	text-align: center;

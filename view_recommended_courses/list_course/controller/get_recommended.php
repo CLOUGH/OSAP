@@ -15,6 +15,7 @@ function get_course_list($search_prefrence)
 	 	return false;
 	}
 	$schedule = null;
+	$requriements = null;
 	$num = $search_prefrence->numArgumentSet();
 	$query = $search_prefrence->courseListQuery();
 	$result_set = $db->query($query);
@@ -25,7 +26,7 @@ function get_course_list($search_prefrence)
 		$course[$i] = new Course();
 		$course[$i]->init($row['id'],$row['title'], $row['code'],$row['subject'],
 						$row['credit'], $row['faculty'], $row['simester'],$row['level'],
-						$schedule, $row['type'],$row['description'],array());
+						$schedule, $row['type'],$row['description'],array(),$requriements);
 	}
 
 	$db->close();

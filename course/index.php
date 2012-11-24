@@ -9,6 +9,7 @@
 		include_once '../common/php_class/course.php';
 		include_once '../common/php_class/user.php';
 		include_once '../common/php_class/user.php';
+		include_once '../common/php_class/requirements.php';
 
 		foreach (glob('../common/php_controller/*.php') as $filename)
 		{
@@ -82,11 +83,10 @@
 
 		/*----------------------------------------------------Get Course Requirements-----------------------------------------------------*/
 		#TODO: IMPLEMENT Requirements
-		/*$requirement_resultset = $db->query("SELECT r.* FROM course_requirments r WHERE r.course_id=".$record['id']);
-		$requirment_row = $requirement_resultset->fetch_assoc();
-		$requirement = new CourseRequirment($requirment_row['id'],$requirment_row['lectures'], $requirment_row['tutorial']);
-	*/
-		$requirement=null;
+		$requirement_resultset = $db->query("SELECT r.* FROM course_requirements r WHERE r.course_id=".$record['id']);
+		$requirement_row = $requirement_resultset->fetch_assoc();
+		$requirement = new Requirements($requirement_row['id'],$requirement_row['labs'],$requirement_row['tutorial'],$requirement_row['lectures']);
+
 
 		$course->init($record['id'],$record['title'], $record['code'],$record['subject'],
 						$record['credit'], $record['faculty'], $record['simester'],$record['level'],
@@ -117,10 +117,16 @@
 			<div id="requirements">
 				<h4>Course Requirements</h4>
 				<p>Requirements of the course to sucessfully register</p>
-				<input type="checkbox" readonly="readonly" />Requirment 1<br>
-				<input type="checkbox" readonly="readonly" />Requirment 2<br>
-				<input type="checkbox" readonly="readonly" />Requirment 3<br>
-				<input type="checkbox" readonly="readonly" />Requirment 4<br>
+				<?php $requirements = $course->getRequirements();?>
+				<input type="checkbox" readonly="readonly" />
+					<h5 class="inline_heading"><?php echo $requirements->getlectures(); ?></h5> Lectures
+				<br>
+				<input type="checkbox" readonly="readonly" />
+					<h5 class="inline_heading"><?php echo $requirements->getTutorials(); ?></h5> Tutorials
+				<br>
+				<input type="checkbox" readonly="readonly" />
+					<h5 class="inline_heading"><?php echo $requirements->getLabs(); ?></h5> Labs
+				<br>
 
 			</div>
 			<form method="post" action="../view_recommended_courses/list_course/controller/register.php">
@@ -128,6 +134,7 @@
 				<h4>Schedules</h4>
 				<table>
 					<tr tr id="table_heading">
+						<td style="padding-left:0px;">CRN</td>
 						<td>Type</td>
 						<td>Time</td>
 						<td>Day</td>
@@ -139,6 +146,7 @@
 						foreach($course->getSchedules() as $sched){ # Start of loop ?>
 						<tr class="row">
 							<?php
+								echo '<td>'.$sched->getID().'</td>';
 							 	echo '<td>'.$sched->getType().'</td>';
 							 	echo '<td>'.$sched->getTime().'</td>';
 							 	echo '<td>'.$sched->getDay().'</td>';

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 22, 2012 at 08:02 AM
+-- Generation Time: Nov 24, 2012 at 09:54 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.2.17
 
@@ -167,27 +167,11 @@ CREATE TABLE IF NOT EXISTS `prerequisite` (
 --
 
 CREATE TABLE IF NOT EXISTS `registered_courses` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Id_Number` varchar(255) NOT NULL,
-  `Courses` varchar(255) NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `Username` (`Id_Number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
-
---
--- Dumping data for table `registered_courses`
---
-
-INSERT INTO `registered_courses` (`Id`, `Id_Number`, `Courses`) VALUES
-(1, '620045123', ''),
-(2, '620043090', 'Mechanics Lecture 08:00:00 Mon \nMechanics Lab 09:00:00 Tue \n'),
-(3, '620040012', ''),
-(4, '620045126', ''),
-(5, '620043902', ''),
-(6, '620041152', ''),
-(7, '620047152', ''),
-(8, '620043905', ''),
-(9, '620041325', '');
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) NOT NULL,
+  `schedule_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -221,6 +205,24 @@ INSERT INTO `schedule` (`id`, `crn`, `capacity`, `course_id`, `day`, `time`, `ro
 (5, 293, 150, 2, 'Wend', '17:00:00', 'P04 Lecture Theater A', 'Lecture'),
 (6, 8943, 150, 2, 'Tue', '15:00:00', 'P04 Lecture Theater A', 'Lecture'),
 (7, 87263, 20, 2, 'Fri', '11:00:00', 'Room 2121', 'Tutorial');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
+--
+
+CREATE TABLE IF NOT EXISTS `students` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `registered_faculty` varchar(30) NOT NULL,
+  `major_1` varchar(30) NOT NULL,
+  `major_2` varchar(30) DEFAULT NULL,
+  `minor_1` varchar(30) DEFAULT NULL,
+  `minor_2` varchar(30) DEFAULT NULL,
+  `year_of_study` int(11) NOT NULL,
+  `credit_count` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

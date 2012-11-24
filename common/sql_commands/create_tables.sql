@@ -79,3 +79,20 @@ CREATE TABLE lecture_map
  	lectures INT NOT NULL,
  	tutorial INT NOT NULL
  );
+CREATE TABLE registered_courses
+(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	student_id INT NOT NULL,
+	schedule_id INT NOT NULL
+);
+CREATE TABLE students
+(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	registered_faculty VARCHAR(30) NOT NULL,
+	major_1 VARCHAR(30) NOT NULL,
+	major_2 VARCHAR(30),
+	minor_1 VARCHAR(30),
+	minor_2 VARCHAR(30),
+	year_of_study INT NOT NULL,
+	credit_count INT NOT NULL
+);

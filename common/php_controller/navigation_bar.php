@@ -12,7 +12,6 @@ function get_navigation_bar($type)
 					<li><a href="">Profile Management</a>
 						<ul class="drop_down_list">
 							<li><a href="">View Student Profile</a></li>
-							<li><a href="">Edit Personal Profile</a></li>
 						</ul>
 					</li>
 					<li><a href=""  >Course Advisory</a>

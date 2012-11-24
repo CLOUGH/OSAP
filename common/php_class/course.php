@@ -17,6 +17,7 @@ class Course
 	private $type;
 	private $description;
 	private $comments;
+	private $requirements;
 	/*--------------------------------------------Arrays---------------------------------------*/
 	private $pre_requisites; #[pre_requisites]
 	public $schedule; #[schedule]
@@ -26,7 +27,7 @@ class Course
 		$this->comments= array();
 	}
 	public function init($id,$name, $code,$subject, $credit, $faculty, $simester, $level,$schedule,
-			 $type, $description,$comment_array)
+			 $type, $description,$comment_array,$requirements)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -41,12 +42,14 @@ class Course
 		$this->comments = $comment_array;
 
 		$this->schedule=$schedule;
+		$this->requirements = $requirements;
 	}
 	/*----------------------------------------Setters-------------------------------------------*/
 	public function addSchedule($value)
 	{
 		$this->schedule[count($this->schedule)]= $value;
 	}
+
 	public function addComment($value)
 	{
 		$this->comments[count(comments)] =$value;
@@ -99,6 +102,10 @@ class Course
 	public function getDescription()
 	{
 		return $this->description;
+	}
+	public function getRequirements()
+	{
+		return $this->requirements;
 	}
 	public function getComments()
 	{
