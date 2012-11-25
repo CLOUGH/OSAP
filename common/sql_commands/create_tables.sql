@@ -88,6 +88,7 @@ CREATE TABLE registered_courses
 CREATE TABLE students
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_id INT NOT NULL,
 	registered_faculty VARCHAR(30) NOT NULL,
 	major_1 VARCHAR(30) NOT NULL,
 	major_2 VARCHAR(30),
@@ -95,4 +96,25 @@ CREATE TABLE students
 	minor_2 VARCHAR(30),
 	year_of_study INT NOT NULL,
 	credit_count INT NOT NULL
+);
+CREATE TABLE course_grades
+(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	course_id INT NOT NULL,
+	student_id INT NOT NULL,
+	course_grade DOUBLE NOT NULL,
+	exam_grade DOUBLE NOT NULL
+);
+CREATE TABLE messages
+(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	senders_id INT NOT NULL,
+	receiver_id INT,
+	receiver_username VARCHAR(30),
+	title VARCHAR(50),
+	type VARCHAR(50),
+	message TEXT NOT NULL,
+	sent_date DATE NOT NULL,
+	attachments BLOB
+
 );
