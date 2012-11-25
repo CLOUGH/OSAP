@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 24, 2012 at 09:54 AM
+-- Generation Time: Nov 25, 2012 at 11:58 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.2.17
 
@@ -72,6 +72,28 @@ CREATE TABLE IF NOT EXISTS `course` (
 INSERT INTO `course` (`id`, `title`, `subject`, `type`, `code`, `faculty`, `simester`, `level`, `credit`, `description`) VALUES
 (1, 'Mechanics', 'Physics', 'Theory', 'PHY140A', 'Pure and Applied Sciences', 1, 1, 3, 'Mechanics is the branch of Physics dealing with the study of motion. No matter what your interest in science or engineering, mechanics will be important for you - motion is a fundamental idea in all of science.  Mechanics can be divided into 2 areas - kinematics, dealing with describing motions, and dynamics, dealing with the causes of motion.'),
 (2, 'Electricity and Magnetism', 'Physics', 'Theory', 'PHY1421A', 'Pure and Applied Sciences', 2, 1, 3, 'To explain some phenomena, such as interference and diffraction of light, it is necessary to go beyond geometrical optics.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_grades`
+--
+
+CREATE TABLE IF NOT EXISTS `course_grades` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `course_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `course_grade` double NOT NULL,
+  `exam_grade` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `course_grades`
+--
+
+INSERT INTO `course_grades` (`id`, `course_id`, `student_id`, `course_grade`, `exam_grade`) VALUES
+(1, 1, 1, 33.1, 53.2);
 
 -- --------------------------------------------------------
 
@@ -150,6 +172,25 @@ INSERT INTO `lecture_map` (`id`, `schedule_id`, `lecturer_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `messages`
+--
+
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `senders_id` int(11) NOT NULL,
+  `receiver_id` int(11) DEFAULT NULL,
+  `receiver_username` varchar(30) DEFAULT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `message` text NOT NULL,
+  `sent_date` date NOT NULL,
+  `attachments` blob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `prerequisite`
 --
 
@@ -171,7 +212,16 @@ CREATE TABLE IF NOT EXISTS `registered_courses` (
   `student_id` int(11) NOT NULL,
   `schedule_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `registered_courses`
+--
+
+INSERT INTO `registered_courses` (`id`, `student_id`, `schedule_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -214,6 +264,7 @@ INSERT INTO `schedule` (`id`, `crn`, `capacity`, `course_id`, `day`, `time`, `ro
 
 CREATE TABLE IF NOT EXISTS `students` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
   `registered_faculty` varchar(30) NOT NULL,
   `major_1` varchar(30) NOT NULL,
   `major_2` varchar(30) DEFAULT NULL,
@@ -222,7 +273,14 @@ CREATE TABLE IF NOT EXISTS `students` (
   `year_of_study` int(11) NOT NULL,
   `credit_count` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `user_id`, `registered_faculty`, `major_1`, `major_2`, `minor_1`, `minor_2`, `year_of_study`, `credit_count`) VALUES
+(1, 2, 'Pure and Applied', 'Computer Science', NULL, 'Physics', NULL, 2, 50);
 
 -- --------------------------------------------------------
 
