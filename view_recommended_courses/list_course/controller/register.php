@@ -5,17 +5,30 @@
 
 <?php
 include_once '../../../common/php_class/user.php';
+include_once '../../../common/php_class/course.php';
+include_once '../../../common/php_class/student.php';
 foreach (glob('../../../common/php_controller/*.php') as $filename)
 include_once $filename;
 
 	
 session_start();
+$student_info='';
 $user = $_SESSION['user'];
-	$subject = array() ;
+$student =$_SESSION['student'];
+	$subject = $_POST['id'];
+$student_id = $student->getId();
 
-	foreach($_POST['course']  as  $payamt)  {
-		 array_push($subject, $payamt);
-	}
+
+
+
+	// foreach($_POST['course']  as  $payamt)  {
+	// 	 array_push($subject, $payamt);
+	// }
+/*function student_id($user_id,$user_type){
+
+	$student_info=Student($user_id,$user_type);
+	return $student_info;
+}*/
 
 ?>
 	<meta charset="utf-8"/>
@@ -45,42 +58,66 @@ $user = $_SESSION['user'];
 /--------------------------------------------------*/
 function register($subject, $session_name){
 
-$person = $session_name->getFirstName();
-$serializeArray =serialize($subject); 
+// $person = $session_name->getFirstName();
+// $serializeArray =serialize($subject); 
 /*--------------------------------------------------/
 /				Connects to Database                /
 /--------------------------------------------------*/
 $conn = new mysqli('localhost', 'root', '', 'osap');
+$connection = mysql_connect('localhost', 'root', '', 'osap')or die("cannot connect");
+mysql_select_db('osap',$connection)or die("cannot select DB");
 
 if (mysqli_connect_errno()) {
   exit('Connect failed: '. mysqli_connect_error());
 }
 
-/*--------------------------------------------------/
-/				Updates Course Info                 /
-/--------------------------------------------------*/
-$sql = "UPDATE registered_courses SET Courses = '$serializeArray' WHERE user_name='$person'"; 
+$reg_courses1 = "SELECT * FROM `registered_courses` WHERE student_id='$session_name' and schedule_id='$subject'";
 
-if ($conn->query($sql) === TRUE) {
-  echo 'Successfully Registered For Course: <br />';
-  for ($i=0; $i < count($subject) ; $i++) { 
-  	echo $subject[$i].'<br/>';
-  }
 
+$results = mysql_query($reg_courses1,$connection);
+$count=mysql_num_rows($results);
+
+if ($count == 0 ){
+	/*--------------------------------------------------/
+	/				Updates Course Info                 /
+	/--------------------------------------------------*/
+	$sql = "INSERT INTO `registered_courses` ( `student_id`, `schedule_id`)
+	VALUES ( '$session_name', '$subject')"; 
+
+	if ($conn->query($sql) === TRUE) {
+	  echo 'Successfully Registered For Course: <br />';
+		$course_shed = "SELECT * FROM `schedule` WHERE id='$subject'";
+
+
+		$shed_result = mysql_query($course_shed,$connection);
+		$res=mysql_fetch_array($shed_result);
+		echo $res['day'].', '.$res['time'].', '.$res['room'].', '.$res['type'];
+
+
+	}
+	else {
+	 echo 'Error: '. $conn->error;
+	}
+
+	$conn->close();
+
+	}
+	else{
+		echo "Already Registered For This Course: <br /> <br />";
+		$course_shed = "SELECT * FROM `schedule` WHERE id='$subject'";
+
+
+		$shed_result = mysql_query($course_shed,$connection);
+		$res=mysql_fetch_array($shed_result);
+		echo $res['day'].', '.$res['time'].', '.$res['room'].', '.$res['type'];
+	}
 
 }
-else {
- echo 'Error: '. $conn->error;
-}
-
-$conn->close();
+register($subject, $student_id);
 
 
 
-}
 
-
-register($subject, $user);
 
 
 

@@ -100,7 +100,7 @@
 									$lecturers_name_list.=$lect->getName().", ";
 								 }
 							 	echo '<td>'.$lecturers_name_list.'</td>';
-							 	echo '<td class="checkbox" ><input type="checkbox" name="course[]" value= "'.$course->getName().' '.$sched->getType().' '.$sched->getTime().' '.$sched->getDay(). ' " id="'.$sched->getID().'" />';
+							 	echo '<td class="checkbox" ><input type="checkbox" name="id" value= "'.$sched->getID().' " id="'.$sched->getID().'" />';
 							 ?>
 
 						</tr>

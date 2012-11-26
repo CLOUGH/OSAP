@@ -1,11 +1,27 @@
 <?php
 include_once '../common/php_class/user.php';
+include_once '../common/php_class/student.php';
 foreach (glob('../common/php_controller/*.php') as $filename)
 	include_once $filename;
 session_start();
 // username and password sent from form
 $myusername=$_POST['username'];
 $mypassword=$_POST['password'];
+
+function getCurrentLocation()
+{
+	$pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+	if ($_SERVER["SERVER_PORT"] != "80")
+	{
+	    $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	}
+	else
+	{
+	    $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+	}
+	return $pageURL;
+}
+
 
 function login($myusername,$mypassword)
 {
@@ -45,6 +61,8 @@ if($count==1)
 
 	$_SESSION['main_location'] = $main_location;
 	$_SESSION['user'] = $user;
+	$student = new Student($user->getID(), $user->getType());
+	$_SESSION['student'] = $student;
 	header("location:../home");
 	}
 else {
