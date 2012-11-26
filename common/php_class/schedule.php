@@ -20,6 +20,7 @@ class Schedule
 		$this->room = $room;
 		$this->type = $type;
 		$this->lecturer = $lecturer;
+
 	}
 	public function getCRN()
 	{

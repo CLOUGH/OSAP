@@ -49,6 +49,7 @@ class Course
 	/*----------------------------------------Setters-------------------------------------------*/
 	public function addSchedule($value)
 	{
+		echo get_class($value);
 		$this->schedule[count($this->schedule)]= $value;
 	}
 
@@ -236,6 +237,44 @@ class Course
 		$this->init($record['id'],$record['title'], $record['code'],$record['subject'],
 						$record['credit'], $record['faculty'], $record['simester'],$record['level'],
 						$schedule, $record['type'],$record['description'],$comments,$requirement);
+		#closing database
+		$db->close();
+	}
+	public function getAndUpdateScheudle($sched_id)
+	{
+		#opening database
+		@ $db = new MySQLi('localhost', 'osap_system','pass123','osap');
+		if(mysqli_connect_errno())
+		{
+		 	echo 'Error: could not connect to database.';
+		 	die();
+		}
+		/*--------------------------------------------------------Get Shedules--------------------------------------------------------*/
+		$query = "SELECT * From schedule s where s.id =".$sched_id.";";
+
+		$course_schedule_result_set = $db->query($query);
+
+		for($j=0;$j<$course_schedule_result_set->num_rows; $j++)
+		{
+			$schedule_row = $course_schedule_result_set->fetch_assoc();
+
+			/*-----------------------------------------------------Get Lectures---------------------------------------------------------*/
+			$schedule_lecture_result_set = $db->query("SELECT * FROM lecturer l JOIN lecture_map lm
+				ON lm.lecturer_id = l.id WHERE lm.schedule_id=".$schedule_row['id'].";");
+			$lecturers = array();
+			for($k=0; $k<$schedule_lecture_result_set->num_rows; $k++)
+			{
+				$lecture_rows = $schedule_lecture_result_set->fetch_assoc();
+				$lecturers[$k] = new Lecturer($lecture_rows['id'],$lecture_rows['lecturer_name'],$lecture_rows['email']);
+			}
+
+			#Create Schedule class
+			$schedule[$j]= new Schedule($schedule_row['id'],$schedule_row['crn'], $schedule_row['day'], $schedule_row['time'],
+										$schedule_row['room'],$schedule_row['type'],$lecturers);
+			$this->addSchedule($schedule[$j]);
+
+		}
+
 		#closing database
 		$db->close();
 	}

@@ -18,6 +18,7 @@
 	<link rel ="stylesheet" type="text/css" href="../common/stylesheet/navigation_bar.css" />
 	<script src="../common/jQuery/jquery-1.8.2.js"></script>
 	<script type="text/javascript" src="stylesheet/header.js"></script>
+	<script type="text/javascript" src="javascript/functions.js"></script>
 
 </head>
 <body>
@@ -37,6 +38,11 @@
 					<dd><p>This is the profile page of a a the student</p></dd>
 				</dt>
 			</dl>
+
+			<p>
+				Username: <?php echo $user->getUsername();?>
+
+			</p>
 			<p>
 				ID: <?php echo $student->getId(); ?>
 			</p>
@@ -81,13 +87,15 @@
 			<p>
 				Registered courses
 				<table>
+
 				<tr id="table_heading">
-					<td>Course Code</td>
-					<td>Name</td>
-					<td>Subject</td>
-					<td>Level</td>
-					<td>Faculty</td>
-					<td>Simester</td>
+					<th>Course Code</th>
+					<th>Name</th>
+					<th>Subject</th>
+					<th>Level</th>
+					<th>Faculty</th>
+					<th>Semester</th>
+					<th></th>
 				</tr>
 				<?php $i=0;	foreach($student->getRegisteredCourses() as $course){ ?>
 					<tr class="rows" onclick=<?php echo $i++ ?> >
@@ -97,24 +105,46 @@
 						<td><?php echo $course->getLevel(); ?></td>
 						<td><?php echo $course->getFaculty(); ?></td>
 						<td><?php echo $course->getSimester(); ?></td>
+						<td><input type="button" value="View Schedule" onclick="toggleTable('course_id<?php echo $course->getId(); ?>')" /></td>
+					</tr>
+
+					<tr>
+						<table id="course_id<?php echo  $course->getId(); ?>" style="margin-left:50px;display:none">
+
+
+						<?php foreach ($course->getSchedules() as $sched) {?>
+							<tr>
+							 	<td><?php echo $sched->getType()?></td>
+							 	<td><?php echo $sched->getTime()?></td>
+							 	<td><?php echo $sched->getDay()?></td>
+							 	<td><?php echo $sched->getRoom()?></td>
+							 	<?php $lecturers_name_list=null;
+							 	foreach ($sched->getLecturer() as $lect) {
+									$lecturers_name_list.=$lect->getName().", ";
+								 }?>
+							 	<td><?php echo $lecturers_name_list; ?></td>
+						 	</tr>
+						<?php }?>
+						</table>
 					</tr>
 				<?php } ?>
+
 				</table>
 			</p>
 			<p>
 				Course Grades
 				<table>
 				<tr id="table_heading">
-					<td>Course Code</td>
-					<td>Name</td>
-					<td>Subject</td>
-					<td>Level</td>
-					<td>Faculty</td>
-					<td>Simester</td>
-					<td>Course Grade</td>
-					<td>Exam Grade</td>
-					<td>Final Grade</td>
-					<td>GPA</td>
+					<th>Course Code</th>
+					<th>Name</th>
+					<th>Subject</th>
+					<th>Level</th>
+					<th>Faculty</th>
+					<th>Semester</th>
+					<th>Course Grade</th>
+					<th>Exam Grade</th>
+					<th>Final Grade</th>
+					<th>GPA</th>
 
 				<?php $i=0;
 					foreach($student->getCourseGrades() as $course_grades){
@@ -135,6 +165,7 @@
 				<?php } ?>
 				</table>
 			</p>
+			<a href="edit.php">Edit Profile</a>
 		</div>
 
 		<div class="footer">

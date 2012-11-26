@@ -33,18 +33,23 @@ class Student
 		$this->minors = array($row['minor_1'],$row['minor_2']);
 		$this->credit_count =$row['credit_count'];
 
-
-		$query = "SELECT r.student_id, r.schedule_id, c.id FROM registered_courses r
+		#GET COURSES
+		$query = "SELECT r.schedule_id, c.id FROM registered_courses r
 					JOIN schedule s ON s.id = r.schedule_id
 					JOIN course c ON c.id = s.course_id
-					WHERE r.student_id =".$this->id."
-					GROUP BY c.title";
+					WHERE r.student_id =".$this->id;
+
 		$result_set = $db->query($query);
+
 		for($i=0; $i<$result_set->num_rows;$i++)
 		{
 			$row= $result_set->fetch_assoc();
-			$this->registered_courses[$i] = new Course();
-			$this->registered_courses[$i]->updateCourse($row['id']);
+			if(!isset($this->registered_courses[$row['id']]))
+			{
+				$this->registered_courses[$row['id']] = new Course();
+				$this->registered_courses[$row['id']]->bareUpdate($row['id']);
+			}
+			$this->registered_courses[$row['id']]->getAndUpdateScheudle($row['schedule_id']);
 		}
 
 		$query = "SELECT cg.* FROM course_grades cg
