@@ -7,7 +7,7 @@ function get_notification_bar($first_name,$last_name)
 			<spam id="user_name">'.
 			$first_name.' '.$last_name.'
 			</spam>
-			<a href="#" >
+			<a href="../messaging/index.php" >
 				<img id="mail_img" src="'.$main_location.'/common/images/e_mail_16x16.png" />
 			</a>
 			<a href="'.$main_location.'/login/logout.php" >

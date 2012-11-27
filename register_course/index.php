@@ -88,12 +88,12 @@
 			<p>
 				Add the schedule id of the course you would like to register for.
 			</p>
-			<form method="POST" action="register.php">
+			<form method="POST" action="reg_by_shedID.php">
 				<p>
-					<input class="schedule_fields" type="text" name=""/>
-					<input class="schedule_fields" type="text" name=""/>
-					<input class="schedule_fields" type="text" name=""/>
-					<input class="schedule_fields" type="text" name=""/>
+					<input class="schedule_fields" type="text" name="field1"/>
+					<input class="schedule_fields" type="text" name="field2"/>
+					<input class="schedule_fields" type="text" name="field3"/>
+					<input class="schedule_fields" type="text" name="field4"/>
 				</p>
 				<p>
 					<input type="submit" value="Submit" name="submit"/>
