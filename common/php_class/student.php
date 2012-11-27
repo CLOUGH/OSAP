@@ -69,6 +69,10 @@ class Student
 		return 0;
 	}
 	/*----------------------------------Getters--------------------------------------------------------*/
+	public function setFaculty($value)
+	{
+		$this->faculty=$value;
+	}
 	public function getId()
 	{
 		return $this->id;

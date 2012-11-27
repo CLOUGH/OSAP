@@ -22,6 +22,15 @@
 			$this->email=$email;
 			$this->type=$type;
 		}
+		public function setUsername($value)
+		{
+			$this->username = $value;
+		}
+		public function setEmail($value)
+		{
+			$this->email = $value;
+		}
+
 		public function getID()
 		{
 			return $this->id;

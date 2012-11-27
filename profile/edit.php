@@ -47,15 +47,15 @@
 			<form method="post" action="update_profile.php">
 				<p>
 					Email:
-					<input type="text" value="<?php  echo  $user->getEmail(); ?>"name="email"/>
+					<input type="text" name="email"/>
 				</p>
 				<p>
 					Faculty:
-					<input type="text" value="<?php echo $student->getFaculty(); ?>" name="faculty" />
+					<input type="text" name="faculty" />
 				</p>
 				<p>
 					Username:
-					<input type="text" value="<?php echo $user->getUsername();?>" name="username"/>
+					<input type="text" name="username"/>
 				</p>
 				<p>
 					Old Password
