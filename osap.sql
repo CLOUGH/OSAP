@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 25, 2012 at 11:58 AM
+-- Generation Time: Nov 26, 2012 at 08:14 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.2.17
 
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `registered_courses` (
   `student_id` int(11) NOT NULL,
   `schedule_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `registered_courses`
@@ -221,7 +221,8 @@ CREATE TABLE IF NOT EXISTS `registered_courses` (
 INSERT INTO `registered_courses` (`id`, `student_id`, `schedule_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
-(3, 1, 3);
+(3, 1, 3),
+(4, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -307,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `user_name`, `password`, `first_name`, `last_name`, `middle_name`, `date_of_birth`, `email`, `type`) VALUES
 (1, 'shane', 'pass1234', 'Shane ', 'Campbell', 'c', '1992-11-08', 'shane.campbell.779@facebook.com', 'student'),
-(2, 'warren', 'pass123', 'Warren', 'Clough', 'Gareth Alexander', '1992-02-12', 'clough_waren@hotmail.com', 'student'),
+(2, 'warrenax', 'pass123', 'Warren', 'Clough', 'Gareth Alexander', '1992-02-12', 'clough_waren@hotmail.com', 'student'),
 (3, 'sabrina', 'pass1234', 'Sabrina', 'Anderson', 'k', '1991-07-23', 'prettykera@hotmail.com ', 'student'),
 (4, 'demoy', 'pass1234', 'Demoy', 'Blake', 'k', '1992-11-01', 'demoyb@gmail.com ', 'student');
 

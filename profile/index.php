@@ -24,6 +24,7 @@
 <body>
 	<?php
 		$student = new Student($user->getID(),$user->getType());
+		$message = isset($_GET['message'])?$_GET['message']:null;
 	?>
 	<div class="wrapper">
 		<div class="header" >
@@ -38,6 +39,10 @@
 					<dd><p>This is the profile page of a a the student</p></dd>
 				</dt>
 			</dl>
+
+			<?php if (isset($message)): ?>
+				<p><?php echo $message ?></p>
+			<?php endif ?>
 
 			<p>
 				Username: <?php echo $user->getUsername();?>

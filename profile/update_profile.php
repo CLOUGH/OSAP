@@ -18,15 +18,12 @@ session_start();
 	if(preg_match('/^[a-zA-Z0-9]{4,10}$/', $username))
 	{
 		$result_set = $db->query("SELECT user_name FROM users");
-		foreach($result_set->fetch_assoc() as $row)
+		for($i=0;$i<$result_set->num_rows;$i++)
 		{
-			echo '<script type="text/javascript">';
-			echo 'alert("reach")';
-			echo '</script>';
-			if($row==$username)
-			{
-				echo  '<script type="text/javascript">alter("That username is already in use.")</script>';
-				header('Location:/index.php');
+			$row = $result_set->fetch_assoc();
+			if($row['user_name']==$username)			{
+				header('location:edit.php?message='.urlencode("This username already exist please try again"));
+				exit();
 			}
 		}
 		$query ="UPDATE users SET user_name='".$username."' WHERE users.user_name ='".$user->getUsername()."'";
@@ -35,8 +32,6 @@ session_start();
 		var_dump($username);
 
 	}
-	header('location:index.php');
-	$query ="UPDATE user
-			SET user_name=value, column2=value2,...
-WHERE some_column=some_value";
+
+	header('location:index.php?message='.urlencode("The update was successful."));
 ?>

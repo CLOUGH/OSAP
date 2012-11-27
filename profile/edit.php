@@ -24,8 +24,11 @@
 <body>
 	<?php
 		$student = new Student($user->getID(),$user->getType());
+		$message = isset($_GET['message'])?$_GET['message']:null;
 	?>
 	<div class="wrapper">
+
+
 		<div class="header" >
 			<?php echo get_notification_bar($user->getFirstName(),$user->getLastName()); ?>
 			<h1 id="test">Student Online Advisory Portal</h1>
@@ -38,7 +41,9 @@
 					<dd><p>This is the profile page of a a the student</p></dd>
 				</dt>
 			</dl>
-
+			<?php if (isset($message)): ?>
+				<p><?php echo $message ?></p>
+			<?php endif ?>
 			<form method="post" action="update_profile.php">
 				<p>
 					Email:
