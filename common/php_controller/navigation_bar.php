@@ -23,7 +23,7 @@ function get_navigation_bar($type)
 					</li>
 					<li><a href="">Register</a>
 						<ul class="drop_down_list">
-							<li><a href="">Register Course</a></li>
+							<li><a href="'.$main_location.'/register_course">Register Course</a></li>
 							<li><a href="">Request Override</a></li>
 						</ul>
 					</li>

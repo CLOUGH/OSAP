@@ -2,7 +2,7 @@
 include_once "../common/php_class/user.php";
 session_start();
 #opening database
-	@ $db = new MySQLi('localhost', 'osap_system','pass123','osap');
+	@$db = new MySQLi('localhost', 'osap_system','pass123','osap');
 	if(mysqli_connect_errno())
 	{
 	 	echo 'Error: could not connect to database.';
@@ -15,12 +15,14 @@ session_start();
 	$old_password = $_POST["old_password"];
 	$new_password =$_POST["confirm_password"];
 
-
 	if(preg_match('/^[a-zA-Z0-9]{4,10}$/', $username))
 	{
 		$result_set = $db->query("SELECT user_name FROM users");
 		foreach($result_set->fetch_assoc() as $row)
 		{
+			echo '<script type="text/javascript">';
+			echo 'alert("reach")';
+			echo '</script>';
 			if($row==$username)
 			{
 				echo  '<script type="text/javascript">alter("That username is already in use.")</script>';
